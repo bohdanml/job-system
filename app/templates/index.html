@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Список вакансій</h2>
+    <ul>
+        {% for job in jobs %}
+            <li><b>{{ job.title }}</b> – {{ job.description }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Додати вакансію</h3>
+    <form action="/jobs/create" method="post">
+        <input type="text" name="title" placeholder="Назва вакансії" required>
+        <input type="text" name="description" placeholder="Опис" required>
+        <button type="submit">Додати</button>
+    </form>
+{% endblock %}

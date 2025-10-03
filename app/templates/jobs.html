@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Вакансії</h2>
+
+{% if vacancies %}
+    <ul class="vacancy-list">
+    {% for v in vacancies %}
+        <li class="vacancy-item">
+            <h3>{{ v.title }}</h3>
+            <p>{{ v.description }}</p>
+            <p class="meta">
+                Роботодавець: {{ v.employer.full_name or v.employer.email if v.employer else "Невідомо" }}
+            </p>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Поки що немає вакансій — додай першу!</p>
+{% endif %}
+
+<hr/>
+
+<!-- show user form if requested -->
+{% if show_user_form %}
+<h3>Створити користувача</h3>
+<form action="/users/create" method="post" class="form">
+    <input name="email" type="email" placeholder="Email" required>
+    <input name="full_name" type="text" placeholder="Ім'я (необов'язково)">
+    <input name="password" type="password" placeholder="Пароль" required>
+    <select name="role">
+        <option value="job_seeker">Шукач роботи </option>
+        <option value="employer">Роботодавець</option>
+    </select>
+    <button type="submit">Створити</button>
+</form>
+{% endif %}
+
+<!-- show vacancy form if requested -->
+{% if show_vacancy_form %}
+<h3>Додати вакансію</h3>
+<form action="/vacancies/create" method="post" class="form">
+    <input name="title" type="text" placeholder="Назва вакансії" required>
+    <textarea name="description" placeholder="Опис вакансії" rows="4"></textarea>
+    <label>Роботодавець:</label>
+    <select name="employer_id" required>
+        {% if employers %}
+            {% for e in employers %}
+                <option value="{{ e.id }}">{{ e.full_name or e.email }}</option>
+            {% endfor %}
+        {% else %}
+            <option disabled>Немає роботодавців — створіть користувача з роллю "employer"</option>
+        {% endif %}
+    </select>
+    <button type="submit">Додати вакансію</button>
+</form>
+{% endif %}
+
+<!-- quick action links -->
+<div style="margin-top: 1rem;">
+    <a href="/vacancies/new">Додати вакансію</a> |
+    <a href="/users/new">Створити користувача</a>
+</div>
+{% endblock %}

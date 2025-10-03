@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Система працевлаштування</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Система працевлаштування</h1>
+        <nav>
+            <a href="/">Головна</a> |
+            <a href="/vacancies/new">Додати вакансію</a> |
+            <a href="/users/new">Створити користувача</a> |
+            <a href="/docs">API (Swagger)</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <small>Прототип • FastAPI + Jinja2</small>
+    </footer>
+</body>
+</html>
